@@ -62,22 +62,26 @@ $(function() {
     /* TODO: Write a new test suite named "The menu" */
     describe('The menu', function() {
 		 /* A test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
+         * hidden by default. */
          */
 		it('hidden by default', function() {
 			const isHidden = document.getElementsByTagName('body')[0].classList.contains('menu-hidden');
 			expect(isHidden).toBeTruthy();
 		});
+		  /* A test that ensures the menu changes
+          * visibility when the menu icon is clicked. */
+		it('toggled when the nav-icon is clicked', function() {
+			const toggleIcon = document.getElementsByClassName('menu-icon-link')[0];
+			const bodyElement = document.getElementsByTagName('body')[0];
+				// First click, should make the navigation visible
+				toggleIcon.click(); 
+				expect(bodyElement.classList.contains('menu-hidden')).toBeFalsy();
+				// Second click, should make the navigation hidden
+				toggleIcon.click(); 
+				expect(bodyElement.classList.contains('menu-hidden')).toBeTruthy();
+
+		});
 	});
-
-
-         /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
 
     /* TODO: Write a new test suite named "Initial Entries" */
 
