@@ -27,11 +27,21 @@ $(function() {
         });
 
 
-        /* TODO: Write a test that loops through each feed
+        /* A test that loops through each feed
          * in the allFeeds object and ensures it has a URL defined
          * and that the URL is not empty.
          */
-
+        it('have defined URLs', function() {
+			let allContainURL = true;
+            for(let feed of allFeeds){
+				if(allContainURL){
+					if(typeof feed.url === undefined){
+						allContainURL = false;
+					}
+				}
+			}
+			expect(allContainURL).toBeTruthy();
+        });
 
         /* TODO: Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
