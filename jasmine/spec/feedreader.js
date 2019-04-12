@@ -43,10 +43,21 @@ $(function() {
 			expect(allContainURL).toBeTruthy();
         });
 
-        /* TODO: Write a test that loops through each feed
+        /* Write a test that loops through each feed
          * in the allFeeds object and ensures it has a name defined
          * and that the name is not empty.
          */
+		    it('have defined names', function() {
+			let allContainNames = true;
+            for(let feed of allFeeds){
+				if(allContainNames){
+					if(typeof feed.name === undefined){
+						allContainNames = false;
+					}
+				}
+			}
+			expect(allContainNames).toBeTruthy();
+        });
     });
 
 
