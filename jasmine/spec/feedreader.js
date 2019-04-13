@@ -1,7 +1,7 @@
 /* feedreader.js
  *
  * This is the spec file that Jasmine will read and contains
- * all of the tests that will be run against your application.
+ * all of the tests that will be run against the application.
  */
 
 /* We're placing all of our tests within the $() function,
@@ -55,7 +55,8 @@ $(function() {
         });
     });
     /* This is our second test suite. This suite is all about the Menu
-    * element. */
+    * element. 
+	*/
     describe('The menu', function() {
 		 /* A test that ensures the menu element is
          * hidden by default. 
@@ -78,34 +79,58 @@ $(function() {
 			expect(bodyElement.classList.contains('menu-hidden')).toBeTruthy();
 		});
 	});
-
+    /* This is our third test suite. This suite is about the 
+	loading the entries of the fetched feed.
+	*/
     describe('Initial Entries', function() {
-		const feed = document.getElementsByClassName('feed')[0];
-		let entry;
 		beforeEach(function(done) {
 			loadFeed(1, function(){
 				done();
 			});
-		
 		});
 		/* A test that ensures when the loadFeed
          * function is called and completes its work, there is at least
          * a single .entry element within the .feed container.
 		 */
-		 it('feed loads the information correctly', function(done) {
-				let entry = document.getElementsByClassName('entry')[0];
+		 it('feed loader loads the information', function(done) {
+			 	const feed = document.getElementsByClassName('feed')[0];
+				const entry = document.getElementsByClassName('entry')[0];
 				const condition = feed.contains(entry);
 				expect(condition).toBeTruthy;
 				done();
 		 });
 	});
-	/*
 
-	*/
-    /* TODO: Write a new test suite named "New Feed Selection" */
-
-        /* TODO: Write a test that ensures when a new feed is loaded
+    /* This is our fourth test suite. This suite is about
+	 * updating the entries of the displayed feed with information
+	 * from the fetched one.
+	 */
+	describe('New Feed Selection', function() {
+		let oldFeed, oldHeaderTitle, oldEntries;
+		beforeEach(function(done) {
+			loadFeed(2, function(){
+				done();
+			});
+		});
+        /* A test that ensures when a new feed is loaded
          * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
          */
+		 it('feed loaded updates the information', function(done) {
+				//Getting the previous feed information
+				oldFeed = document.getElementsByClassName('feed')[0];
+				oldHeaderTitle = document.getElementsByClassName('header-title')[0].textContent;
+				oldFirstEntry = oldFeed.querySelector('.entry h2').textContent;
+				loadFeed(0, function(){
+					//Getting the new feed information
+					const newFeed = document.getElementsByClassName('feed')[0];
+					const newHeaderTitle = document.getElementsByClassName('header-title')[0].textContent;
+					const newFirstEntry = newFeed.querySelector('.entry h2').textContent;
+					// Check if the feed title was updated
+					expect(newHeaderTitle).not.toMatch(oldHeaderTitle);
+					// Check if the first article was updated
+					expect(oldFirstEntry).not.toMatch(newFirstEntry);
+					done();
+				});
+		 });
+	});
 }());
